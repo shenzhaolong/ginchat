@@ -72,5 +72,10 @@ func UpdateUser(user UserBasic) *gorm.DB {
 func FindUserByNameAndPwd(name, pwd string) UserBasic {
 	user := UserBasic{}
 	utils.DB.Where("name = ? and pass_word = ?", name, pwd).First(&user)
+
+	// token identity
+	str := time.Now().GoString()
+	temp := utils.MD5Encode(str)
+	utils.DB.Model(&user).Where("id = ?", user.ID).Update("identity", temp)
 	return user
 }
