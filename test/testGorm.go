@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"ginchat/models"
-	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -16,21 +14,24 @@ func main() {
 	}
 
 	// 迁移 schema
-	db.AutoMigrate(&models.UserBasic{})
+	// db.AutoMigrate(&models.UserBasic{})
+	// db.AutoMigrate(&models.Message{})
+	db.AutoMigrate(&models.GroupBasic{})
+	db.AutoMigrate(&models.Contact{})
 
-	// Create
-	user := &models.UserBasic{
-		Name:          "沈朝龙",
-		LoginTime:     time.Now(),
-		HeartbeatTime: time.Now(),
-		LogOutTime:    time.Now(),
-	}
-	db.Create(user)
+	// // Create
+	// user := &models.UserBasic{
+	// 	Name:          "沈朝龙",
+	// 	LoginTime:     time.Now(),
+	// 	HeartbeatTime: time.Now(),
+	// 	LogOutTime:    time.Now(),
+	// }
+	// db.Create(user)
 
-	fmt.Printf("db.First(user, 1): %v\n", db.First(user, 1))
+	// fmt.Printf("db.First(user, 1): %v\n", db.First(user, 1))
 
-	// Read
-	db.Model(user).Update("PassWord", "1234")
+	// // Read
+	// db.Model(user).Update("PassWord", "1234")
 
 	// // Update - 将 product 的 price 更新为 200
 	// db.Model(&product).Update("Price", 200)
